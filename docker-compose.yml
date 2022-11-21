@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    backend:
+        build: /api
+        ports:
+            - 5001:80
+        depends_on:
+            - db
+        environment:
+          - USERNAME_DB=${USERNAME_DB}
+          - PASSWORD_DB=${PASSWORD_DB}
+    db:
+      image: mysql:5.7
+      restart: always
+      environment:
+        MYSQL_DATABASE: 'db'
+        MYSQL_USER: "${USERNAME_DB}"
+        MYSQL_PASSWORD: "${PASSWORD_DB}"
+        MYSQL_ROOT_PASSWORD: "${PASSWORD_DB}"
+      ports:
+        - '3306:3306'
+      expose:
+        - '3306'
