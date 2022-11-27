@@ -4,9 +4,9 @@ services:
     backend:
         build: /api
         ports:
-            - 5001:80
+          - 5001:80
         depends_on:
-            - db
+          - db
         environment:
           - USERNAME_DB=${USERNAME_DB}
           - PASSWORD_DB=${PASSWORD_DB}

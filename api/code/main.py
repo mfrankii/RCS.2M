@@ -1,11 +1,6 @@
-from fastapi import FastAPI
 import os
-
+from fastapi import FastAPI
+from routes.user import user
 app = FastAPI()
 
-@app.get('/')
-async def get():
-    return {
-        "USERNAME_DB": os.environ.get('USERNAME_DB'),
-        "PASSWORD_DB": os.environ.get('PASSWORD_DB')
-        }
+app.include_router(user)
