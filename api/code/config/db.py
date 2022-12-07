@@ -7,3 +7,8 @@ mydb = mysql.connector.connect (
   password=os.environ.get('PASSWORD_DB'),
   database="db"
 )
+
+def dispose():
+  if mydb.is_connected():
+    mydb.close()
+    print("MySQL connection is closed")
