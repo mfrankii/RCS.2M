@@ -12,6 +12,13 @@
 - Michel Chorny - [Micha230](https://github.com/Micha230) | [:email:](mailto:#)
 - Carmel Isaac - [CarmelIsaac](https://github.com/CarmelIsaac) | [:email:](mailto:icarmel1811@gmail.com)
 
+## 
+```
+Backend:            Python (FastAPI|uvicorn)
+Frontend:           React
+Database:           MySQL
+```
+
 <!-- ROADMAP -->
 ## Roadmap
 - [ ] Part A - (Frontend & Backend)
