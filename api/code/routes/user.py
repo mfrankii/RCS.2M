@@ -6,7 +6,6 @@ user = APIRouter()
 
 @user.put('/CreateUser', tags=["User"])
 async def create_user(user: User):
-    # TODO: hah password
     mycursor = mydb.cursor()
     sql = "INSERT INTO Users (userName, email, password, plan_id) VALUES (%s, %s, %s, %s)"
     val = (user.userName, user.email, hash(user.password), user.plan_id)
