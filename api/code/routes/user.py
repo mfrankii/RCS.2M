@@ -8,7 +8,8 @@ user = APIRouter()
 async def create_user(user: User):
     mycursor = mydb.cursor()
     sql = "INSERT INTO Users (userName, email, password, plan_id) VALUES (%s, %s, %s, %s)"
-    val = (user.userName, user.email, hash(user.password), user.plan_id)
+    user.password = hash(user.password)
+    val = (user.userName, user.email, user.password, user.plan_id)
     mycursor.execute(sql, val)
     mydb.commit()
     return userEntity(user)
