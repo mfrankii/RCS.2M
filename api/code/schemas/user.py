@@ -21,16 +21,21 @@ def userEntity(item) -> dict:
             "plan_id": item[4],
         }
 
-
 def hash(password: str) -> str:
     # Generate a random salt
     salt = str(random.getrandbits(128))
-
     # Use HMAC to hash the password with the salt
     password_hash = hmac.new(salt.encode(), password.encode(), hashlib.sha256).hexdigest()
-
     # Return the salt and the hash as one string
     return salt + password_hash
+
+def validate_password(password: str, password_hash: str) -> bool:
+    # Extract the salt from the password hash
+    salt = password_hash[:128]
+    # Use HMAC to hash the password with the salt and compare it to the stored password hash
+    return hmac.new(salt.encode(), password.encode(), hashlib.sha256).hexdigest() == password_hash[128:]
+
+
 
 
 # TODO: imp

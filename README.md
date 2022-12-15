@@ -12,16 +12,33 @@
 - Michel Chorny - [Micha230](https://github.com/Micha230) | [:email:](mailto:#)
 - Carmel Isaac - [CarmelIsaac](https://github.com/CarmelIsaac) | [:email:](mailto:icarmel1811@gmail.com)
 
+## 
+```
+Backend:            Python (FastAPI|uvicorn)
+Frontend:           React
+Database:           MySQL
+```
+
 <!-- ROADMAP -->
 ## Roadmap
-- [ ] Part A - Frontend & Backend
-  - [ ] DB
-  - [ ] Register
-  - [ ] Change password
-  - [ ] Forget password
-  - [ ] Login
-  - [ ] System page
-- [ ] Part B - Backend
+- [ ] Part A - (Frontend & Backend)
+  - [ ] API
+    - [x] DB
+    - [x] Salt and HMAC
+    - [x] Register
+    - [ ] Change password
+    - [ ] Forget password
+    - [ ] Login
+    - [ ] TLS1.2 and self-signed certificate
+  - [ ] GUI
+    - [ ] User Page
+    - [ ] Register Page
+    - [ ] Forget Page
+    - [ ] Login Page
+    - [ ] View Page
+    - [ ] System page
+    - [ ] TLS1.2 and self-signed certificate
+- [ ] Part B
   - [ ] Stored XSS 
   - [ ] Sqli  
   - [ ] Configuration file   
