@@ -69,7 +69,7 @@ async def forgot_password(user: User):
     return userEntity(updated_user)
 
 
-
+#Used in ForgotPassword and ChangePassword :
 def update_password(user_name: str, password_hash: str):
     # Update the user's password in the database
     mycursor = mydb.cursor()
@@ -77,3 +77,4 @@ def update_password(user_name: str, password_hash: str):
     val = (password_hash, user_name)
     mycursor.execute(sql, val)
     mydb.commit()
+
