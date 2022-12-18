@@ -8,8 +8,7 @@ import smtplib
 import secrets
 user = APIRouter()
 
-
-@user.put('/CreateUser', tags=["User"])
+@user.put('/api/CreateUser', tags=["User"])
 async def create_user(user: User):
     mycursor = mydb.cursor()
     sql = "INSERT INTO Users (userName, email, password, plan_id) VALUES (%s, %s, %s, %s)"
@@ -19,7 +18,7 @@ async def create_user(user: User):
     mydb.commit()
     return userEntity(user)
 
-@user.get('/GetUsers', tags=["User"]) 
+@user.get('/api/GetUsers', tags=["User"]) 
 def get_all_users():
     mycursor = mydb.cursor()
     sql = "SELECT * FROM Users"

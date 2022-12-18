@@ -4,7 +4,7 @@ from config.db import mydb
 from schemas.plan import planEntity, plansEntity
 plan = APIRouter()
 
-@plan.put('/CreatePlan', tags=["Plan"])
+@plan.put('/api/CreatePlan', tags=["Plan"])
 async def create_plan(plan: Plan):
     mycursor = mydb.cursor()
     sql = "INSERT INTO Plans (name, price, dataSize) VALUES (%s, %s, %s)"
@@ -13,7 +13,7 @@ async def create_plan(plan: Plan):
     mydb.commit()
     return planEntity(plan)
 
-@plan.get('/GetPlans', tags=["Plan"]) 
+@plan.get('/api/GetPlans', tags=["Plan"]) 
 def get_all_plans():
     mycursor = mydb.cursor()
     sql = "SELECT * FROM Plans"
