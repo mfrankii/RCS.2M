@@ -4,7 +4,7 @@ services:
     backend:
         build: /api
         ports:
-          - 5001:80
+          - 5001:443
         environment:
           - USERNAME_DB=${USERNAME_DB}
           - PASSWORD_DB=${PASSWORD_DB}
@@ -13,6 +13,14 @@ services:
             condition: service_healthy
         volumes:
           - ./api/code:/code
+    frontend:
+        build: /ui
+        ports:
+          - 5000:443
+        depends_on:
+          - backend
+        volumes:
+          - ./ui/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     db:
       image: mysql:5.7
       environment:
@@ -30,4 +38,4 @@ services:
       healthcheck:
         test: ["CMD", "mysqladmin", "--password=${PASSWORD_DB}", "ping", "-h", "localhost"]
         timeout: 20s
-        retries: 3
+        retries: 2

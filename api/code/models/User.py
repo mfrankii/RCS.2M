@@ -5,4 +5,3 @@ class User(BaseModel):
     userName: str
     email: str
     password: str
-    plan_id: int
