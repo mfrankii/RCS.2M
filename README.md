@@ -29,7 +29,7 @@ Database:           MySQL
     - [ ] Change password
     - [ ] Forget password
     - [ ] Login
-    - [ ] TLS1.2 and self-signed certificate
+    - [x] TLS1.2 and self-signed certificate
   - [ ] GUI
     - [ ] User Page
     - [ ] Register Page
@@ -37,7 +37,7 @@ Database:           MySQL
     - [ ] Login Page
     - [ ] View Page
     - [ ] System page
-    - [ ] TLS1.2 and self-signed certificate
+    - [x] TLS1.2 and self-signed certificate
 - [ ] Part B
   - [ ] Stored XSS 
   - [ ] Sqli  
