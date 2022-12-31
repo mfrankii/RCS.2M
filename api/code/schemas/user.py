@@ -9,16 +9,14 @@ def userEntity(item) -> dict:
             "user_id": item.user_id,
             "userName": item.userName,
             "email": item.email,
-            "password": item.password,
-            "plan_id": item.plan_id,
+            "password": item.password
         }
     else:
         return {
             "user_id":str(item[0]),
             "userName":item[1],
             "email":item[2],
-            "password": item[3],
-            "plan_id": item[4],
+            "password": item[3]
         }
 
 def hash(password: str) -> str:

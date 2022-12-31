@@ -5,4 +5,4 @@ class Consumer(BaseModel):
     name: str
     phone: str
     email: str
-    plan_id: int
+    isActive: bool

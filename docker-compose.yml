@@ -8,19 +8,21 @@ services:
         environment:
           - USERNAME_DB=${USERNAME_DB}
           - PASSWORD_DB=${PASSWORD_DB}
+          - EMAIL_USER=${EMAIL_USER}
+          - EMAIL_PASS=${EMAIL_PASS}
         depends_on:
           db:
             condition: service_healthy
         volumes:
           - ./api/code:/code
-    frontend:
-        build: /ui
-        ports:
-          - 5000:443
-        depends_on:
-          - backend
-        volumes:
-          - ./ui/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    #frontend:
+    #    build: /ui
+    #    ports:
+    #      - 5000:443
+    #    depends_on:
+    #      - backend
+    #    volumes:
+    #      - ./ui/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     db:
       image: mysql:5.7
       environment:
