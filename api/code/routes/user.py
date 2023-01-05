@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from models.User import User
 from config.db import mydb
-from schemas.user import userEntity,usersEntity,hash    
+from schemas.user import userEntity,usersEntity,hash,validate_password
 from hashlib import sha1
 import ssl
 import smtplib
@@ -11,9 +11,9 @@ user = APIRouter()
 @user.put('/api/CreateUser', tags=["User"])
 async def create_user(user: User):
     mycursor = mydb.cursor()
-    sql = "INSERT INTO Users (userName, email, password, plan_id) VALUES (%s, %s, %s, %s)"
+    sql = "INSERT INTO User (userName, email, password) VALUES (%s, %s, %s)"
     user.password = hash(user.password)
-    val = (user.userName, user.email, user.password, user.plan_id)
+    val = (user.userName, user.email, user.password)
     mycursor.execute(sql, val)
     mydb.commit()
     return userEntity(user)
@@ -21,11 +21,10 @@ async def create_user(user: User):
 @user.get('/api/GetUsers', tags=["User"]) 
 def get_all_users():
     mycursor = mydb.cursor()
-    sql = "SELECT * FROM Users"
+    sql = "SELECT * FROM User"
     mycursor.execute(sql)
     data = mycursor.fetchall()
     return usersEntity(data)
-
 
     # =============================================================================================
 
@@ -33,12 +32,13 @@ def get_all_users():
 # change password :
 @user.put('/ChangePassword', tags=["User"])
 async def change_password(user: User, new_password: str):
+    # TODO
+        # get user from DB
+        # validate_password(user.password, )
     # Hash the new password
     password_hash = hash(new_password)
-
     # Update the user's password in the database
     update_password(user.userName, password_hash)
-
     # Return the updated user object
     updated_user = user.copy(update={"password": password_hash})
     return userEntity(updated_user)
@@ -72,7 +72,7 @@ async def forgot_password(user: User):
 def update_password(user_name: str, password_hash: str):
     # Update the user's password in the database
     mycursor = mydb.cursor()
-    sql = "UPDATE Users SET password = %s WHERE userName = %s"
+    sql = "UPDATE User SET password = %s WHERE userName = %s"
     val = (password_hash, user_name)
     mycursor.execute(sql, val)
     mydb.commit()

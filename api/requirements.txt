@@ -1,3 +1,11 @@
 fastapi
 uvicorn[standard]
+
+# DB
 mysql-connector-python
+
+# SSL/TLS
+pyOpenSSL
+certifi
+# socks
+PySocks
