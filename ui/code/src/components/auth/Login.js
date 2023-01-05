@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Profile from '../profile/Profile';
+import instance from "../../api/Http"
 
 const Login = (props) => {
 
@@ -9,17 +10,26 @@ const Login = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [user, setUser] = useState(false);
 
   const onSubmit = async e => {
     e.preventDefault();
-    //API req Check if user exist
-    //if exsit set isLogin to true and render profile with Data
-    console.log('succses');
-    setEmail('');
-    setPassword('');
-    props.onSetIsLogin();
-    
+    instance.post("/login",{email: email, password: password},{withCredentials: true,})
+    .then(res => {
+      if (!res.data.Status)
+        throw "Invalid user!"
+
+        setUser(res.data.Username)
+        console.log('succses');
+        setEmail('');
+        setPassword('');
+        props.onSetIsLogin();
+    })
+    .catch(err => {
+        console.error(err)
+        alert("Error user:" + err)
+    })
+
  }
    
 
@@ -30,7 +40,7 @@ const Login = (props) => {
     
     <div>
         {props.login && 
-          <Profile />
+          <Profile Username={user} />
         }
         {!props.login && 
            <div>

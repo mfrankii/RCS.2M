@@ -15,7 +15,7 @@ def consumerEntity(item) -> dict:
             "name": item[1],
             "phone": item[2],
             "email": item[3],
-            "isActive": item[4]
+            "isActive": str(item[4])
         }
 
 def consumersEntity(entity) -> list:

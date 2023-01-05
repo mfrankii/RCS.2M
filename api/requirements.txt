@@ -9,3 +9,8 @@ pyOpenSSL
 certifi
 # socks
 PySocks
+
+bcrypt
+
+
+configparser

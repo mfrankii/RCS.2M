@@ -1,12 +1,28 @@
 from fastapi import APIRouter
-from models.User import User
+from models.User import User,loginUser
 from config.db import mydb
 from schemas.user import userEntity,usersEntity,hash,validate_password
 from hashlib import sha1
 import ssl
 import smtplib
 import secrets
+import config.common
+
 user = APIRouter()
+
+@user.post("/api/login", tags=["User"])
+async def login(user: loginUser):
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM User WHERE email = %s"
+    val = (user.email, )
+    mycursor.execute(sql, val)
+    data = mycursor.fetchall()
+    if len(data) == 0:
+        return { "Status": False, "Username": "" }
+    pass_from_db = data[0][3].strip()
+    userName = data[0][1].strip()
+    is_successfull = validate_password(user.password, pass_from_db)
+    return { "Status": is_successfull, "Username": userName }
 
 @user.put('/api/CreateUser', tags=["User"])
 async def create_user(user: User):
@@ -17,6 +33,19 @@ async def create_user(user: User):
     mycursor.execute(sql, val)
     mydb.commit()
     return userEntity(user)
+
+# TODO: handle it !!
+# check if password is long enough
+#if len(password) < int(config['minimal_password_length']):
+ #   flash('Error: password must contain at least {0} characters.'.format(config['minimal_password_length']))
+  #  return render_template("register.html", username = username, email = email
+# check if password contains capital letters
+#if config['must_include_capital_letters'] == 'True':
+  #  if not any(x.isupper() for x in password.decode('utf-8')): # if there's no at least one capital letter
+ #       flash('Error: password must contain uppercase letters.')
+  #      return render_template("register.html", username = username, email = email)
+
+
 
 @user.get('/api/GetUsers', tags=["User"]) 
 def get_all_users():

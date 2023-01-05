@@ -9,9 +9,8 @@ import ForgotPassword from './components/auth/ForgotPassword';
 import ChangePassword from './components/auth/ChangePassword';
 import './App.css';
 
-
 function App() {
-    
+
   const [isLogin, setIsLogin] = useState(false);
 
   const setIsLoginHandler = () => {
