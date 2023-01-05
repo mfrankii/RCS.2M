@@ -42,5 +42,5 @@ Database:           MySQL
   - [ ] Stored XSS 
   - [ ] Sqli  
   - [ ] Configuration file   
-- [ ] Part C - Model STRIDE/DREAD
+- [x] Part C - Model STRIDE/DREAD
   
