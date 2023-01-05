@@ -27,7 +27,7 @@ const Profile = (props) => {
 
   return (
     <div>
-        <h1 className="large text-primary">Hello Profile</h1>
+        <h1 className="large text-primary">Hello {props.Username}</h1>
         <p className="lead">Add New Client</p>
         <form className="form" onSubmit={e => onSubmit(e)}>
               <div className="form-group">
