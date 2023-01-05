@@ -62,6 +62,9 @@ const Login = (props) => {
               <p className="my-1">
               Dont have an account? <Link to='/register'>Sign Up</Link>
               </p>
+              <p className="my-1">
+              Forgot Password? <Link to='/reset'>Reset Password</Link>
+              </p>
           </div>
         }
     </div>
