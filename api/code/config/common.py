@@ -1,4 +1,4 @@
-from configparser import ConfigParser, RawConfigParser
+from configparser import RawConfigParser
 
 def load_config():
     parser = RawConfigParser()
