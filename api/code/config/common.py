@@ -1,6 +1,6 @@
-from configparser import ConfigParser
+from configparser import RawConfigParser
 
 def load_config():
-    config = ConfigParser()
-    config.read("./config.ini")
-    return config['PASSWORDS']
+    parser = RawConfigParser()
+    parser.read("./config/config.ini")
+    return parser['PASSWORDS']
