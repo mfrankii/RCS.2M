@@ -1,5 +1,6 @@
 <div align="center">
-  <img src="./assets/logo.png" alt="logo" />
+  <img src="./assets/logo-black.png#gh-dark-mode-only" alt="logo" />
+  <img src="./assets/logo.png#gh-light-mode-only" alt="logo" />
 </div>
 
 > A project for a computer security course at HIT
