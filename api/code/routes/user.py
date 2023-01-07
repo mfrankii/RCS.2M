@@ -29,8 +29,8 @@ async def login(user: loginUser):
 @user.put('/api/CreateUser', tags=["User"])
 async def create_user(user: User):
     config_ = config.common.load_config()
-    IsMatch = re.fullmatch(config_['regex_password'], user.password)
-    if not IsMatch:
+    is_match = re.fullmatch(config_['regex_password'], user.password)
+    if not is_match:
         return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, 
             content="The password must include:\nAt least 10 characters \n any of the special characters: @#$%^&+=! \n numbers: 0-9 \n lowercase letters: a-z \n uppercase letters: A-Z")
     
