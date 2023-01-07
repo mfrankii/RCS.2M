@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
+from fastapi.responses import JSONResponse
 from models.User import User,loginUser
 from config.db import mydb
 from schemas.user import userEntity,usersEntity,hash,validate_password
@@ -7,6 +8,7 @@ import ssl
 import smtplib
 import secrets
 import config.common
+import re
 
 user = APIRouter()
 
@@ -26,6 +28,12 @@ async def login(user: loginUser):
 
 @user.put('/api/CreateUser', tags=["User"])
 async def create_user(user: User):
+    config_ = config.common.load_config()
+    IsMatch = re.fullmatch(config_['regex_password'], user.password)
+    if not IsMatch:
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, 
+            content="The password must include:\nAt least 10 characters \n any of the special characters: @#$%^&+=! \n numbers: 0-9 \n lowercase letters: a-z \n uppercase letters: A-Z")
+    
     mycursor = mydb.cursor()
     sql = "INSERT INTO User (userName, email, password) VALUES (%s, %s, %s)"
     user.password = hash(user.password)
@@ -33,18 +41,6 @@ async def create_user(user: User):
     mycursor.execute(sql, val)
     mydb.commit()
     return userEntity(user)
-
-# TODO: handle it !!
-# check if password is long enough
-#if len(password) < int(config['minimal_password_length']):
- #   flash('Error: password must contain at least {0} characters.'.format(config['minimal_password_length']))
-  #  return render_template("register.html", username = username, email = email
-# check if password contains capital letters
-#if config['must_include_capital_letters'] == 'True':
-  #  if not any(x.isupper() for x in password.decode('utf-8')): # if there's no at least one capital letter
- #       flash('Error: password must contain uppercase letters.')
-  #      return render_template("register.html", username = username, email = email)
-
 
 
 @user.get('/api/GetUsers', tags=["User"]) 
