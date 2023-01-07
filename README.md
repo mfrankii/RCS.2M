@@ -43,4 +43,4 @@ Database:           MySQL
   - [x] Configuration file   
 - [x] Part C - Model STRIDE/DREAD
 
-## Model STRIDE/DREAD - [Threat Analysis.pdf](./assets/Threat_Analysis.pdf.pdf)
+## Model STRIDE/DREAD - [Threat Analysis.pdf](./assets/Threat_Analysis.pdf)
