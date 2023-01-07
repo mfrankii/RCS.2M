@@ -31,16 +31,16 @@ Database:           MySQL
     - [ ] Login
     - [x] TLS1.2 and self-signed certificate
   - [ ] GUI
-    - [ ] User Page
+    - [x] User Page
     - [ ] Register Page
     - [ ] Forget Page
     - [ ] Login Page
-    - [ ] View Page
-    - [ ] System page
+    - [x] View Page
     - [x] TLS1.2 and self-signed certificate
 - [ ] Part B
   - [ ] Stored XSS 
   - [ ] Sqli  
-  - [ ] Configuration file   
+  - [x] Configuration file   
 - [x] Part C - Model STRIDE/DREAD
-  
+
+## Model STRIDE/DREAD - [Threat Analysis.pdf](./Threat%20analysis.pdf)
