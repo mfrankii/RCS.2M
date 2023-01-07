@@ -1,6 +1,5 @@
 <div align="center">
-  <img src="#" alt="logo" />
-  <h1> ~~~ RCS 2M ~~~ </h1>
+  <img src="./assets/logo.png" alt="logo" />
 </div>
 
 > A project for a computer security course at HIT
@@ -43,4 +42,4 @@ Database:           MySQL
   - [x] Configuration file   
 - [x] Part C - Model STRIDE/DREAD
 
-## Model STRIDE/DREAD - [Threat Analysis.pdf](./Threat%20analysis.pdf)
+## Model STRIDE/DREAD - [Threat Analysis.pdf](./assets/Threat_Analysis.pdf.pdf)
