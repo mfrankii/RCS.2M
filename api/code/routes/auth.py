@@ -66,7 +66,7 @@ def send_mail(email: str):
     message['Subject'] = 'RCS.2M - Change password'
     message.attach(MIMEText(f"Your token for change password: {token}", 'plain'))
     
-    #with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-    #    server.login(EMAIL_USER, EMAIL_PASS)
-    #    server.sendmail(EMAIL_USER, [email], message.as_string())
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        server.login(EMAIL_USER, EMAIL_PASS)
+        server.sendmail(EMAIL_USER, [email], message.as_string())
     return JSONResponse("Sent",status_code=status.HTTP_202_ACCEPTED)
