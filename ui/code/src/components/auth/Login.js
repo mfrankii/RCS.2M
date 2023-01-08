@@ -4,26 +4,22 @@ import { Link } from 'react-router-dom';
 import Profile from '../profile/Profile';
 import instance from "../../api/Http"
 
+
 const Login = (props) => {
 
-  
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(false);
-
+  console.log("username", props.username)
   const onSubmit = async e => {
     e.preventDefault();
-    instance.post("/login",{email: email, password: password},{withCredentials: true,})
+    instance.post("/auth/login",{email: email, password: password},{withCredentials: true,})
     .then(res => {
       if (!res.data.Status)
         throw "Invalid user!"
 
-        setUser(res.data.Username)
-        console.log('succses');
-        setEmail('');
-        setPassword('');
-        props.onSetIsLogin();
+        props.onSetUsername();
+        window.location.reload()
     })
     .catch(err => {
         console.error(err)
@@ -31,18 +27,12 @@ const Login = (props) => {
     })
 
  }
-   
-
-
   return (
-
-  
-    
     <div>
-        {props.login && 
-          <Profile Username={user} />
+        {props.username && 
+          <Profile Username={props.username} />
         }
-        {!props.login && 
+        {!props.username && 
            <div>
               <h1 className="large text-primary">Sign In</h1>
               <p className="lead"><i class="fas fa-user"></i> Sign Into Your Account</p>
