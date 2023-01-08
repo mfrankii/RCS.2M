@@ -22,24 +22,24 @@ Database:           MySQL
 <!-- ROADMAP -->
 ## Roadmap
 - [ ] Part A - (Frontend & Backend)
-  - [ ] API
+  - [x] API
     - [x] DB
     - [x] Salt and HMAC
     - [x] Register
-    - [ ] Change password
-    - [ ] Forget password
-    - [ ] Login
+    - [x] Change password
+    - [x] Forget password
+    - [x] Login
     - [x] TLS1.2 and self-signed certificate
-  - [ ] GUI
+  - [x] GUI
     - [x] User Page
-    - [ ] Register Page
-    - [ ] Forget Page
-    - [ ] Login Page
+    - [x] Register Page
+    - [x] Forget Page
+    - [x] Login Page
     - [x] View Page
     - [x] TLS1.2 and self-signed certificate
-- [ ] Part B
-  - [ ] Stored XSS 
-  - [ ] Sqli  
+- [x] Part B
+  - [x] Stored XSS 
+  - [x] Sqli  
   - [x] Configuration file   
 - [x] Part C - Model STRIDE/DREAD
 
