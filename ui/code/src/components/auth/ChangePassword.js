@@ -30,7 +30,7 @@ const ChangePassword = props => {
         })
         .catch(err => {
             console.error(err)
-            alert("Error: " + err)
+            alert("Error: " + err.response.data)
         })
     }
     else {  // CASE 2 : Change Password 
@@ -44,7 +44,7 @@ const ChangePassword = props => {
         })
         .catch(err => {
             console.error(err)
-            alert("Error: " + err)
+            alert("Error: " + err.response.data)
         })
     }
 

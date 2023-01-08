@@ -14,7 +14,7 @@ from datetime import datetime
 user = APIRouter()
 config_ = config.common.load_config()
 
-@user.put('/api/CreateUser', tags=["User"])
+@user.post('/api/CreateUser', tags=["User"])
 async def create_user(user: User):
     is_match = re.fullmatch(config_['regex_password'], user.password)
     if not is_match:
@@ -27,7 +27,8 @@ async def create_user(user: User):
     val = (user.userName, user.email, user.password)
     mycursor.execute(sql, val)
     mydb.commit()
-    return userEntity(user)
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content="") 
+
 
 
 @user.get('/api/GetUsers', tags=["User"]) 
