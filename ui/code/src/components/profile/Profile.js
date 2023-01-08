@@ -1,27 +1,36 @@
 import React from 'react'
 import ClientsList from './ClientsList';
 import { useState } from 'react';
-
+import instance from "../../api/Http"
 
 
 const Profile = (props) => {
 
 
   const [clientName, setClientName] = useState('');
+  const [clientPhone, setClientPhone] = useState('');
   const [clientEmail, setClientEmail] = useState('');
-  const [clientPackege, setClientPackege] = useState('');
-  const [client,setClient] = useState({});
 
   const onSubmit = async e => {
     e.preventDefault();
-    //API post req to ADD new client to list
-    //if email exist do not add client
-    console.log('succses');
+    instance.post("CreateConsumer",
+      {name: clientName, phone: clientPhone, email: clientEmail, isActive: true })
+      .then(result => {
+        if (result.status != 201)
+          throw result.data
+        
+        setClientName('');
+        setClientEmail('');
+        setClientEmail('');
 
+        alert(result.statusText)
 
-    setClientName('');
-    setClientEmail('');
-    setClientPackege('');
+        window.location.reload()
+      })
+      .catch(err => {
+          console.error(err)
+          alert("Error user:" + err)
+      })
  }
 
 
@@ -51,10 +60,10 @@ const Profile = (props) => {
               <div className="form-group">
                   <input
                   type="text"
-                  placeholder="Client Packege"
-                  name="packege"
-                  value={clientPackege}
-                  onChange={(e) => setClientPackege(e.target.value)}
+                  placeholder="Client Phone"
+                  name="Phone"
+                  value={clientPhone}
+                  onChange={(e) => setClientPhone(e.target.value)}
                   />
               </div>
               <input type="submit" className="btn btn-primary" value="Add Client" />

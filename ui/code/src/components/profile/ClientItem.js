@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ClientItem = ({key,name,email,phone,isActive}) => {
+const ClientItem = ({name,email,phone,isActive}) => {
   return (
     <div>
         <h1>Name: {name}</h1>

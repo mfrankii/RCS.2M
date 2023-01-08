@@ -21,7 +21,7 @@ Database:           MySQL
 
 <!-- ROADMAP -->
 ## Roadmap
-- [ ] Part A - (Frontend & Backend)
+- [x] Part A - (Frontend & Backend)
   - [x] API
     - [x] DB
     - [x] Salt and HMAC
