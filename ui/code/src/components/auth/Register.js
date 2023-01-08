@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import instance from "../../api/Http"
 
 const Register = (props) => {
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name:'',
     email:'',
@@ -19,9 +19,22 @@ const Register = (props) => {
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
-       props.setAlert('password do not match')
+      alert('password do not match')
     } else {
-        console.log('succses')
+        instance.post("/CreateUser",
+        {userName: name, email: email, password: password},{withCredentials: true,})
+      .then(response => {
+        if (response.status != 201)
+          throw response.data
+
+          alert(response.statusText)
+          navigate('/')
+      })
+      .catch(err => {
+          console.error(err)
+          alert("Error user: " + err.response.data)
+      })
+
     }
  }
    
@@ -38,7 +51,7 @@ const Register = (props) => {
              placeholder="Name" 
              name="name"
              value={name}
-             onChange={e => onchange(e)} 
+             onChange={e => onChange(e)} 
              required 
              />
         </div>
@@ -48,7 +61,7 @@ const Register = (props) => {
              placeholder="Email Address"
              name="email" 
              value={email}
-             onChange={e => onchange(e)}
+             onChange={e => onChange(e)}
              />
         </div>
         <div className="form-group">
@@ -58,7 +71,7 @@ const Register = (props) => {
             name="password"
             minLength="6"
             value={password}
-            onChange={e => onchange(e)}
+            onChange={e => onChange(e)}
           />
         </div>
         <div className="form-group">
@@ -68,7 +81,7 @@ const Register = (props) => {
             name="password2"
             minLength="6"
             value={password2}
-            onChange={e => onchange(e)}
+            onChange={e => onChange(e)}
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
