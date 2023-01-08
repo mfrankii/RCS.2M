@@ -12,8 +12,30 @@ import os
 from fastapi.responses import JSONResponse
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from models.User import loginUser
+from schemas.user import validate_password
 
 auth = APIRouter()
+
+@auth.post("/api/auth/login", tags=["Auth"])
+async def login(user: loginUser):
+    mycursor = mydb.cursor()
+    sql = "SELECT * FROM User WHERE email = %s"
+    val = (user.email, )
+    mycursor.execute(sql, val)
+    data = mycursor.fetchall()
+    if len(data) == 0:
+        return JSONResponse({ "Status": False, "Username": "" }, status_code=status.HTTP_401_UNAUTHORIZED)
+    pass_from_db = data[0][3].strip()
+    userName = data[0][1].strip()
+    is_successfull = validate_password(user.password, pass_from_db)
+
+    if is_successfull:
+        response = JSONResponse({ "Status": is_successfull, "Username": userName }, status_code=status.HTTP_200_OK)
+        response.set_cookie(key="Username", value=userName)
+        return response
+    else:
+        return JSONResponse({ "Status": is_successfull, "Username": "" }, status_code=status.HTTP_401_UNAUTHORIZED)
 
 @auth.get('/api/auth/sendMail', tags=["Auth"]) 
 def send_mail(email: str):
@@ -37,33 +59,14 @@ def send_mail(email: str):
     EMAIL_USER = os.environ.get('EMAIL_USER')
     EMAIL_PASS = os.environ.get('EMAIL_PASS')
    
-
     #Setup the MIME
     message = MIMEMultipart()
     message['From'] = EMAIL_USER
     message['To'] = email
-    message['Subject'] = 'RCS.2M'
-    message.attach(MIMEText(f"Your link for change password: https://localhost:5001/ChangePassword?token={token}", 'plain'))
+    message['Subject'] = 'RCS.2M - Change password'
+    message.attach(MIMEText(f"Your token for change password: {token}", 'plain'))
     
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(EMAIL_USER, EMAIL_PASS)
         server.sendmail(EMAIL_USER, [email], message.as_string())
     return JSONResponse("Sent",status_code=status.HTTP_202_ACCEPTED)
-
-@auth.get('/api/auth/validateToken', tags=["Auth"])
-def validate_token(token: str):
-    mycursor = mydb.cursor()
-    sql = "SELECT * FROM Token where token = %s"
-    adr = (token,)
-    mycursor.execute(sql, adr)
-    result = mycursor.fetchall()
-    if len(result) == 0:
-        return JSONResponse("Invalid token!", status_code=status.HTTP_401_UNAUTHORIZED)
-    user_token = result[0]
-    expired_token = datetime.strptime(user_token[3], '%Y-%m-%d %H:%M:%S')
-    is_expired = datetime.now() > expired_token
-    if (is_expired):
-        return JSONResponse(content="Expired!", status_code=status.HTTP_401_UNAUTHORIZED)
-    return JSONResponse(user_token[2], status_code=status.HTTP_200_OK)
-
-
