@@ -18,7 +18,7 @@ const ClientsList = (props) => {
 
   return (
     <div>
-      <h1>Clients List</h1>
+      <h1 style={{textAlign: "center"}}>Clients List</h1>
        {
         data.map((client) => (
             <ClientItem

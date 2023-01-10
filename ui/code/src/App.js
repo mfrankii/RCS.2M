@@ -14,6 +14,7 @@ function App() {
 
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState(cookies.get('Username'));
+  const [email, setEmail] = useState(cookies.get('Email'));
   const setIsLoginHandler = () => {
     setIsLogin(!isLogin);
   };
@@ -26,7 +27,7 @@ function App() {
             <Navbar username={username} onSetIsLogin={setIsLoginHandler} />
             <section className='container'> 
                 <Routes>
-                      <Route path='/' element={<Login username={username} onSetUsername={setUsername}/>}/>
+                      <Route path='/' element={<Login username={username} email={email} onSetUsername={setUsername}/>}/>
                       <Route path='/register' element={<Register/>}/>
                       <Route path='/reset' element={<ForgotPassword/>}/>
                       <Route path='/change' element={<ChangePassword/>}/>

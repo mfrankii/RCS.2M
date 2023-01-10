@@ -6,6 +6,7 @@ const Navbar = (props) => {
   const cookies = new Cookies();
   const logoutHandler = () => {
     cookies.remove("Username")
+    cookies.remove("Email")
     window.location.reload()
   };
 

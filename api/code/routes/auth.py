@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Cookie
 from models.User import User
 from config.db import mydb
 from hashlib import sha1
@@ -18,7 +18,10 @@ from schemas.user import validate_password
 auth = APIRouter()
 
 @auth.post("/api/auth/login", tags=["Auth"])
-async def login(user: loginUser):
+async def login(user: loginUser, password_attempts: int | None = Cookie(default=0)):
+    if password_attempts >= 3:
+        return JSONResponse("Too many attempts", status_code=status.HTTP_403_FORBIDDEN)
+
     mycursor = mydb.cursor()
     sql = "SELECT * FROM User WHERE email = %s"
     val = (user.email, )
@@ -33,9 +36,14 @@ async def login(user: loginUser):
     if is_successfull:
         response = JSONResponse({ "Status": is_successfull, "Username": userName }, status_code=status.HTTP_200_OK)
         response.set_cookie(key="Username", value=userName)
+        response.set_cookie(key="Email", value=user.email)
+        response.set_cookie(key="password_attempts", value=0)
         return response
     else:
-        return JSONResponse({ "Status": is_successfull, "Username": "" }, status_code=status.HTTP_401_UNAUTHORIZED)
+        response = JSONResponse({ "Status": is_successfull, "Username": "" }, status_code=status.HTTP_401_UNAUTHORIZED)
+        password_attempts = password_attempts + 1
+        response.set_cookie(key="password_attempts", value=password_attempts)
+        return response
 
 @auth.get('/api/auth/sendMail', tags=["Auth"]) 
 def send_mail(email: str):

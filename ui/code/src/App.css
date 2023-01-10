@@ -575,3 +575,29 @@ button {
     padding: 0.3rem 0.4rem;
   }
 }
+
+/* Card Item */
+.card {
+  /* Change background color */
+  background-color: white;
+
+  /* Add border */
+  border: 1px solid #bacdd8;
+
+  /* Add space between the border and the content */
+  padding: 8px;
+
+  border-radius: 12px;
+
+  box-shadow: 5px 5px rgba(86, 86, 86, 0.232);
+
+  margin-bottom: 20px;
+
+  
+}
+
+.card h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 10px;
+}
