@@ -23,14 +23,14 @@ const Login = (props) => {
     })
     .catch(err => {
         console.error(err)
-        alert("Error user:" + err)
+        alert("Error user: " + err.response.data)
     })
 
  }
   return (
     <div>
         {props.username && 
-          <Profile Username={props.username} />
+          <Profile Username={props.username} email={props.email} />
         }
         {!props.username && 
            <div>

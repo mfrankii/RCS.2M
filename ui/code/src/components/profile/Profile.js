@@ -2,11 +2,11 @@ import React from 'react'
 import ClientsList from './ClientsList';
 import { useState } from 'react';
 import instance from "../../api/Http"
-
+import { useNavigate } from 'react-router-dom';
 
 const Profile = (props) => {
 
-
+  const navigate = useNavigate();
   const [clientName, setClientName] = useState('');
   const [clientPhone, setClientPhone] = useState('');
   const [clientEmail, setClientEmail] = useState('');
@@ -31,6 +31,10 @@ const Profile = (props) => {
           console.error(err)
           alert("Error user:" + err)
       })
+ }
+
+ const changePassword = () => {
+  navigate('/change', { state: { email: props.email }, replace:true });
  }
 
 
@@ -69,6 +73,9 @@ const Profile = (props) => {
               <input type="submit" className="btn btn-primary" value="Add Client" />
               </form>
         <ClientsList />
+      <br />
+      <br />
+        <button onClick={changePassword} className="btn btn-primary">Change Password</button>
     </div>
   )
 }

@@ -17,8 +17,11 @@ const ChangePassword = props => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    // validate oldPassword(if not forgot) and ConfirmPassword and NewPassword
-
+    if (newPassword == ""){
+      alert("Required field!")
+      return;
+    }
+      
     if (forgot) { // CASE 1 : Change Forgot Password
       instance.put(`/ChangeForgotPassword?token=${token}&email=${email}&new_password=${newPassword}`,{withCredentials: true})
         .then(res => {
@@ -34,6 +37,23 @@ const ChangePassword = props => {
         })
     }
     else {  // CASE 2 : Change Password 
+      if (newPassword =! confirmPassword){
+        alert("The passwords are not equal!")
+        return;
+      }
+
+      if (oldPassword == "") {
+        alert("Required field!")
+        return;
+      }
+
+      if (newPassword =! oldPassword){
+        alert("Must be different password!")
+        return;
+      }
+
+
+
       instance.put(`/ChangePassword?email=${email}&new_password=${newPassword}&old_password=${oldPassword}`,{withCredentials: true})
         .then(res => {
           if (res.status != 202)
@@ -51,7 +71,7 @@ const ChangePassword = props => {
 
  }
 
-
+  console.log('email', email)
   return (email &&
     <div>
               <h1 className="large text-primary">Change Password</h1>
